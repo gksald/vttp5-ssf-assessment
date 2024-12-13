@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import jakarta.json.JsonObject;
 import vttp.batch5.ssf.noticeboard.constant.Constant;
+import vttp.batch5.ssf.noticeboard.models.Notice;
 
 
 
@@ -77,16 +79,11 @@ public class NoticeRepository {
 
     private String hashRef = "notice";
     private String keyRef = "noticeKey";
+    
 	public void insertNotices(Notice notice) {
-        JsonObject jsonObj = Utility.eventToJson(notice);
+        JsonObject jsonObj = noticeToJson(notice);
 		template.opsForHash().put(hashRef, notice.getPoster().toString(), jsonObj.toString());
 		template.opsForList().rightPush(keyRef, jsonObj.toString());
-	}
-
-    
-
-    public void saveRecord(Event event) {
-		
 	}
 
 

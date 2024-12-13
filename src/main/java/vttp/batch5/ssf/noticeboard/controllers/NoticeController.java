@@ -40,8 +40,8 @@ public class NoticeController {
 
     @Autowired
     NoticeRepository noticeRepo;
-    // @Qualifier("notice")
-    // RedisTemplate<String, Object> redisTemplate;
+    @Qualifier("notice")
+    RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/notice")
     public String createNotice(Model model) {
